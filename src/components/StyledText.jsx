@@ -39,10 +39,13 @@ const stylesDos =StyleSheet.create({
     },
     subheading:{
         fontSize: theme.fontSize.subheading
+    },
+    textAlignCenter:{
+        textAlign: "center"
     }
 })
 
-export default function StyledText ({/*blue,bold,children,big,small*/children,color,fontSize,fontWeight,style,...restOfProps }){
+export default function StyledText ({/*blue,bold,children,big,small*/align,children,color,fontSize,fontWeight,style,...restOfProps }){
     /*const textStyles=[
         styles.text,
         blue && styles.blue,
@@ -53,10 +56,12 @@ export default function StyledText ({/*blue,bold,children,big,small*/children,co
 
     const textStylesDos=[
         styles.text,
+        align ==="center" && stylesDos.textAlignCenter,
         color === "primary" && stylesDos.colorPrimary,
         color === "secondary" && stylesDos.colorSecondary,
         fontSize=== "subheading" && stylesDos.subheading,
-        fontWeight === "bold" && stylesDos.bold
+        fontWeight === "bold" && stylesDos.bold,
+        style
     ]
     return(
         <Text style={textStylesDos} {...restOfProps}>

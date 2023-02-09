@@ -1,6 +1,8 @@
 import React from 'react'
-import { View,Text,StyleSheet } from 'react-native'
+import { View,Text,StyleSheet,Image } from 'react-native'
+import RepositoryStats from './RepositoryStats'
 import StyledText from './StyledText'
+import theme from './Theme'
 
 const styles = StyleSheet.create({
     container:{
@@ -12,19 +14,42 @@ const styles = StyleSheet.create({
         color: "#09f",
         fontWeight: " bold",
         marginEnd: 5
+    },
+    language:{
+      padding:4,
+      color: theme.colors.white,
+      backgroundColor: theme.colors.primary,
+      alignSelf: "flex-start",
+      borderRadius:4,
+      overflow: "hidden"
+    },
+    image:{
+      width:48,
+      height: 48,
+      borderRadius: 4
     }
 })
+
+const RepositoryItemHeader = (props)=>(
+  <View style={{flexDirection: "row", paddingBottom: 2}}>
+  <View style={{flex:0,paddingRight:10}}>
+   <Image style={styles.image} source={{uri: props.repo.ownerAvatarUrl}}></Image>
+  </View>
+    <View style={{flex:1}}>
+      <StyledText fontWeight="bold" fontSize="subheading">Name:{props.repo.fullName}</StyledText>
+      <StyledText >Description:{props.repo.description}</StyledText>
+      <StyledText style={styles.language} >{props.repo.language}</StyledText>
+    </View>
+  </View>
+)
+
+
 
 const RepositoryItem = (props) => {
   return (
     <View key={Math.floor(Math.random()*10000)} style={styles.container}>
-        <StyledText fontWeight="bold" fontSize="subheading">Name:{props.repo.fullName}</StyledText>
-        <StyledText >Description:{props.repo.description}</StyledText>
-        <StyledText >language:{props.repo.language}</StyledText>
-        <StyledText >Stars:{props.repo.stargazersCount}</StyledText>
-        <StyledText >Forks:{props.repo.forksCount}</StyledText>
-        <StyledText >Reviews: {props.repo.reviewCount}</StyledText>
-        <StyledText >Rating: {props.repo.ratingAverage}</StyledText>
+        <RepositoryItemHeader {...props}></RepositoryItemHeader>
+        <RepositoryStats {...props}></RepositoryStats>
     </View>
   )
 }
